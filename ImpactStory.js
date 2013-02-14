@@ -1,7 +1,5 @@
 var impactStory = {};
 
-var jQuery = jQuery;
-
 // This should be overriden. An error will be thrown if a key is not set.
 impactStory.key = '';
 
@@ -341,7 +339,6 @@ impactStory._arrayify = function(item) {
                else {
                  impactStory.addAndGetItem(item, function(data) {
                    impactStory.renderTemplate(template, data, function(markup) {
-                     console.log(markup);
                      $container.html(markup);
                    });
                  });
