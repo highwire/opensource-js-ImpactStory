@@ -17,6 +17,9 @@ I'm currently working on the documentation. In the meantime, check out the examp
        // Optionally set some global variables
        impactStory.key = 'YOURKEY';
        impactStory.templates = './templates'; // You can set your own template path if you are hosting the library locally, otherwise it will use a CDN
+
+       // Overriding jQuery for the sake of convenience in this example file (don't do this in read life)
+       var $ = jQuery;
     </script>
   </head>
   
@@ -34,7 +37,7 @@ I'm currently working on the documentation. In the meantime, check out the examp
     <!-- Note that we don't need to set a api-key since we set it above in the global options -->
     <div class="my-own-class" data-pmid="19210768"></div>
     <script>
-      jQuery('.my-own-class').ImpactStoryEmbed('report');
+      $('.my-own-class').ImpactStoryEmbed('report');
     </script>
 
     <!-- Instead of relying on data elements, you can pass in the requisite information -->
@@ -43,12 +46,12 @@ I'm currently working on the documentation. In the meantime, check out the examp
     <div class="my-own-class-3"></div>
     <div class="my-own-class-4"></div>
     <script>
-      jQuery('.my-own-class-2').ImpactStoryEmbed('report', {doi: '10.1186/1471-2148-9-37'});
+      $('.my-own-class-2').ImpactStoryEmbed('report', {doi: '10.1186/1471-2148-9-37'});
       
-      jQuery('.my-own-class-3').ImpactStoryEmbed('report', {preloaded: true,  'id-type': 'pmid',  id: 19210768});
+      $('.my-own-class-3').ImpactStoryEmbed('report', {preloaded: true,  'id-type': 'pmid',  id: 19210768});
       
       // Or we can pass an "item" in a format like {pmid: 12345} or ['pmid','12345']
-      jQuery('.my-own-class-4').ImpactStoryEmbed('report', {item: ['pmid','12345']});
+      $('.my-own-class-4').ImpactStoryEmbed('report', {item: ['pmid','12345']});
     </script>
     
     <!-- There is also a robust API for working entirely in JavaScript land -->
