@@ -19,7 +19,7 @@ Overall I'm pretty happy with it.  Left to do:
 
 4. Documentation (both inline and readme) as well as lots of little tweaks and bug fixes.
 
-I'm currently working on the documentation. In the meantime, check out the example.html file, which is well documented and provides a lot of useful exmaples. 
+I'm currently working on the documentation. In the meantime, check out the `example.html` file, which is well documented and provides a lot of useful exmaples. 
 
 ```html
 <!DOCTYPE html>
