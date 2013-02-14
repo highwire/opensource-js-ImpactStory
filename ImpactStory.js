@@ -5,6 +5,9 @@ var jQuery = jQuery;
 // This should be overriden. An error will be thrown if a key is not set.
 impactStory.key = '';
 
+// Template directory. This may optionally be overriden and set.
+impactStory.templates = 'https://raw.github.com/highwire/opensource-js-ImpactStory/master/templates';
+
 // This may optionally be overriden if you want to use a different URL
 impactStory.url = 'http://api.impactstory.org/v1/';
 
@@ -209,6 +212,51 @@ impactStory.createAndGetCollection = function(aliases, title, callback, error, c
     }, error);
 }
 
+//@@TODO
+impactStory.getProviderInfo = function() {
+  // http://api.impactstory.org/v1/provider?key=YOURKEY
+}
+
+
+impactStory.renderTemplate = function(template, item, callback, error) {
+    jQuery.ajax({
+        url: impactStory.templates + "/" + template + ".html",
+        type: "GET",
+        cache: false
+    }).done(function (returnedData) {
+        // First we need to transform metrics 
+        callback(Mustache.render(returnedData, impactStory.templatizeItem(item)));
+    }).error(function (err) {
+        if (error) {
+            error(err);
+        }
+    });
+}
+
+// Get an item ready for templatization
+// This basically just transforms the metrics object into an array and adds other useful data required by the moustache template engine
+impactStory.templatizeItem = function(item) {
+  var metricsArray = [];
+  for (var name in item.metrics) {
+    // Add the name to the metrics
+    item.metrics[name].name = name;
+    
+    // Mark wether it's values are a "simple" string or a "complex" array of objects
+    if (Array.isArray(item.metrics[name].values.raw)) {
+      item.metrics[name].values.simple = false;
+    }
+    else {
+      item.metrics[name].values.simple = true;
+    }
+    
+    metricsArray.push(item.metrics[name])
+  }
+  item.metrics = metricsArray;
+  
+  console.log(item);
+  return item;
+}
+
 /**
  * Private function that checks for a valid key and alerts an error if there isn't one set.
  */
@@ -237,5 +285,5 @@ impactStory._arrayify = function(item) {
     throw "impactStory error: items must be in the form of an array (eg. ['pmid','12345'] ) or a hash object (eg. {doi: '10.1371/journal.pbio.1000056'} .)";
     return false;
   }
-
 }
+

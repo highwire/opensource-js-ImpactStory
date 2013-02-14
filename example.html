@@ -7,27 +7,32 @@
     
     <script>
        impactStory.key = '9f1cf3b0290b11e281c10800200c9a66';
+       impactStory.templates = './templates';
        
        function testCallback(data){
           console.log("all done; calling the callback now!")
           console.log(data)
        }
-       impactStory.createAndGetCollection(
-               [["pmid", "10197686"], ["pmid", "11074575"]],
-               "test collection",
-               testCallback
-       )
+       //impactStory.createAndGetCollection(
+       //        [["pmid", "10197686"], ["pmid", "11074575"]],
+      //       "test collection",
+      //         testCallback
+      // )
        
-       impactStory.addAndGetItem({pmid: 12345}, function(data) {
-         console.log(data);
+       impactStory.addAndGetItem({doi: '10.1186/1471-2148-9-37'}, function(data) {
+         impactStory.renderTemplate('report', data, function(markup) {
+           jQuery('#impactstory').html(markup);
+         });
        });
+       
+       
     </script>
   </head>
   
   <body>
-    <h2>This is a heading</h2>
-    <p>This is a paragraph.</p>
-    <p>This is another paragraph.</p>
-    <button>Click me</button>
+    <div id='impactstory'></div>
+    
+    <div class="impactstory-embed" data-id="19210768" data-id-type="pmid" data-api-key="API-DOCS" data-templates="./templates"></div>
+    
   </body>
 </html>
