@@ -18,7 +18,7 @@ I'm currently working on the documentation. In the meantime, check out the examp
        impactStory.key = 'YOURKEY';
        impactStory.templates = './templates'; // You can set your own template path if you are hosting the library locally, otherwise it will use a CDN
 
-       // Overriding jQuery for the sake of convenience in this example file (don't do this in read life)
+       // Overriding jQuery for the sake of convenience in this example file (don't do this in real life)
        var $ = jQuery;
     </script>
   </head>
