@@ -7,9 +7,9 @@
 
     <script>
        // Optionally set some global variables
-       impactStory.key = 'YOURKEY';
-       impactStory.templates = './templates'; // You can set your own template path if you are hosting the library locally, otherwise it will use a CDN
-
+       ImpactStory.key = 'YOURKEY';
+       ImpactStory.templates = './templates'; // You can set your own template path if you are hosting the library locally, otherwise it will use a CDN
+       
        // Overriding jQuery for the sake of brevity in this example file (don't do this in real life)
        var $ = jQuery;
     </script>
@@ -50,13 +50,13 @@
     <!-- There is also a robust API for working entirely in JavaScript land -->
     <script>
       // It's easy to get JSON metric data for a single item
-      impactStory.getItem({doi: '10.1186/1471-2148-9-37'}, function(data) {
+      ImpactStory.getItem({doi: '10.1186/1471-2148-9-37'}, function(data) {
         // Log all the metrics data in JSON format!
         console.log(data);
       });
 
       // It's also easy to create and then get a collection of ALM data in JSON format
-      impactStory.createAndGetCollection(
+      ImpactStory.createAndGetCollection(
           [["pmid", "10197686"], ["pmid", "11074575"]],
           "test collection",
           function(collectionData) {
