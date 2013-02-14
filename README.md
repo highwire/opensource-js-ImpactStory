@@ -88,7 +88,7 @@ I'm currently working on the documentation. In the meantime, check out the `exam
           }
       );
       
-      // If can instatiate different impactStory objects that use different keys, urls etc.
+      // You can instatiate different impactStory objects that use different keys, urls etc.
       var myIS = new impactStory();
       myIS.key = 'SomeOtherDifferentKey';
       myIS.getItem({doi: '10.1186/1471-2148-9-37'}, function(data) { console.log(data) });
