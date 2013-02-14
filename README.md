@@ -1,4 +1,4 @@
-opensource-js-ImpactStory
+ImpactStory.js
 =========================
 
 An awesome, easy to use, flexible and extensible JavaScript API for ImpactStory (http://impactstory.org). 
