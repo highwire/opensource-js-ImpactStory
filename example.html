@@ -63,6 +63,15 @@
             console.log(collectionData);
           }
       );
+      
+      // If can instatiate different impactStory objects that use different keys, urls etc.
+      var myIS = new impactStory();
+      myIS.key = 'SomeOtherDifferentKey';
+      myIS.getItem({doi: '10.1186/1471-2148-9-37'}, function(data) { console.log(data) });
+      
+      var myOtherIS = new impactStory();
+      myOtherIS.url = 'http://api.impactstory.org/v2/'; // Use a theoretical v2 url
+      myOtherIS.getItem({doi: '10.1186/1471-2148-9-37'}, function(data) { console.log(data) });
 
       // **
       // There's a lot more you can do if you read the source of ImpactStory.js
