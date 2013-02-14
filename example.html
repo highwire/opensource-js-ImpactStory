@@ -6,33 +6,65 @@
     <script src="./ImpactStory.js"></script>
     
     <script>
-       impactStory.key = '9f1cf3b0290b11e281c10800200c9a66';
-       impactStory.templates = './templates';
-       
-       function testCallback(data){
-          console.log("all done; calling the callback now!")
-          console.log(data)
-       }
-       //impactStory.createAndGetCollection(
-       //        [["pmid", "10197686"], ["pmid", "11074575"]],
-      //       "test collection",
-      //         testCallback
-      // )
-       
-       impactStory.addAndGetItem({doi: '10.1186/1471-2148-9-37'}, function(data) {
-         impactStory.renderTemplate('report', data, function(markup) {
-           jQuery('#impactstory').html(markup);
-         });
-       });
-       
-       
+       // Optionally set some global variables
+       impactStory.key = 'YOURKEY';
+       impactStory.templates = './templates'; // You can set your own template path if you are hosting the library locally, otherwise it will use a CDN
     </script>
   </head>
   
   <body>
-    <div id='impactstory'></div>
+    <!-- It's easy to auto-embed an ALM report in your website like so. Generally, you'll want to define data-id and data-id-type -->
+    <div class="impactstory-embed-report" data-id="19210768" data-id-type="pmid" data-api-key="YOURKEY"></div>
     
-    <div class="impactstory-embed" data-id="19210768" data-id-type="pmid" data-api-key="API-DOCS" data-templates="./templates"></div>
+    <!-- You can provide data-doi or data-pmid -->
+    <div class="impactstory-embed-report" data-pmid="19210768" data-api-key="YOURKEY"></div>
+    
+    <!-- You can provide data-preloaded="yes" to make things faster if you are sure that impactStory has your item indexed -->
+    <div class="impactstory-embed-report" data-preloaded="yes" data-pmid="19210768" data-api-key="YOURKEY"></div>
+    
+    <!-- You can also trigger your own embed. This is useful if you need to embed to a page that is loaded by AJAX -->
+    <!-- Note that we don't need to set a api-key since we set it above in the global options -->
+    <div class="my-own-class" data-pmid="19210768"></div>
+    <script>
+      jQuery('.my-own-class').ImpactStoryEmbed('report');
+    </script>
+
+    <!-- Instead of relying on data elements, you can pass in the requisite information -->
+    <!-- Anything you can set in the data elements you can set as options and vice-versa -->
+    <div class="my-own-class-2"></div>
+    <div class="my-own-class-3"></div>
+    <div class="my-own-class-4"></div>
+    <script>
+      jQuery('.my-own-class-2').ImpactStoryEmbed('report', {doi: '10.1186/1471-2148-9-37'});
+      
+      jQuery('.my-own-class-3').ImpactStoryEmbed('report', {preloaded: true,  'id-type': 'pmid',  id: 19210768});
+      
+      // Or we can pass an "item" in a format like {pmid: 12345} or ['pmid','12345']
+      jQuery('.my-own-class-4').ImpactStoryEmbed('report', {item: ['pmid','12345']});
+    </script>
+    
+    <!-- There is also a robust API for working entirely in JavaScript land -->
+    <script>
+      // It's easy to get JSON metric data for a single item
+      impactStory.getItem({doi: '10.1186/1471-2148-9-37'}, function(data) {
+        // Log all the metrics data in JSON format!
+        console.log(data);
+      });
+      
+      // It's also easy to create and then get a collection of ALM data in JSON format
+      impactStory.createAndGetCollection(
+          [["pmid", "10197686"], ["pmid", "11074575"]],
+          "test collection",
+          function(collectionData) {
+            console.log(collectionData);
+          }
+      );
+      
+      // **
+      // There's a lot more you can do if you read the source of ImpactStory.js
+      // MORE DOCUMENTATION COMMING SOON!
+      // **
+    </script>
     
   </body>
 </html>

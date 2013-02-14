@@ -5,8 +5,9 @@ var jQuery = jQuery;
 // This should be overriden. An error will be thrown if a key is not set.
 impactStory.key = '';
 
-// Template directory. This may optionally be overriden and set.
-impactStory.templates = 'https://raw.github.com/highwire/opensource-js-ImpactStory/master/templates';
+// Template directory. This needs to be overriden and set.
+// @@TODO: Once we have this properly hosted somewhere, we can default this to the hosted template path.
+impactStory.templates = '';
 
 // This may optionally be overriden if you want to use a different URL
 impactStory.url = 'http://api.impactstory.org/v1/';
@@ -35,7 +36,7 @@ impactStory.addItem = function(item, callback, error) {
             error(err);
         }
     });
-}
+};
 
 /**
  * Get an item with ALM data
@@ -69,7 +70,7 @@ impactStory.getItem = function(item, callback, error) {
                 }
         }
     });
-}
+};
 
 /**
  * Add and then get ALM for an item
@@ -91,7 +92,7 @@ impactStory.addAndGetItem = function(item, callback, error, conf) {
     impactStory.addItem(item, function() {
         impactStory.getItem(item, callback, error, conf);
     }, error);
-}
+};
 
 /**
  * Get collection information (including all ALM data)
@@ -148,7 +149,7 @@ impactStory.getCollection = function(collection, callback, error, conf) {
                 }
         }
     });
-}
+};
 
 /**
  * Create a collection
@@ -185,7 +186,7 @@ impactStory.createCollection = function(aliases, title, callback, error) {
             error(err);
         }
     });
-}
+};
 
 /**
  * Create and then get ALM for a collection
@@ -210,12 +211,12 @@ impactStory.createAndGetCollection = function(aliases, title, callback, error, c
     impactStory.createCollection(aliases, title, function(collection) {
         impactStory.getCollection(collection, callback, error, conf);
     }, error);
-}
+};
 
 //@@TODO
 impactStory.getProviderInfo = function() {
   // http://api.impactstory.org/v1/provider?key=YOURKEY
-}
+};
 
 
 impactStory.renderTemplate = function(template, item, callback, error) {
@@ -231,7 +232,7 @@ impactStory.renderTemplate = function(template, item, callback, error) {
             error(err);
         }
     });
-}
+};
 
 // Get an item ready for templatization
 // This basically just transforms the metrics object into an array and adds other useful data required by the moustache template engine
@@ -252,10 +253,8 @@ impactStory.templatizeItem = function(item) {
     metricsArray.push(item.metrics[name])
   }
   item.metrics = metricsArray;
-  
-  console.log(item);
   return item;
-}
+};
 
 /**
  * Private function that checks for a valid key and alerts an error if there isn't one set.
@@ -268,7 +267,7 @@ impactStory._checkKey = function() {
   else {
     return true;
   }
-}
+};
 
 /**
  * Private utlity function that transforms a hash object like {pmid: 12345} into an array like ['pmid','12345']
@@ -283,7 +282,84 @@ impactStory._arrayify = function(item) {
   }
   else {
     throw "impactStory error: items must be in the form of an array (eg. ['pmid','12345'] ) or a hash object (eg. {doi: '10.1371/journal.pbio.1000056'} .)";
-    return false;
   }
-}
+};
 
+/**
+ * ImpactStoryEmbed is a jQuery plugin that will embed an ImpactStory template
+ */
+(function($){
+    $.fn.extend({ 
+        ImpactStoryEmbed: function(template, options) {
+            var defaults = {
+                'api-key' : impactStory.key,
+                'url' : impactStory.key,
+                'templates': impactStory.templates,
+                'preloaded': false, // Set to true if you are sure ImpactStory already has your item indexed. Setting this to true should make things faster.
+                'doi' :    false,   // Can set a DOI
+                'pmid' :   false,  // can set a pmid
+                'item' :   false,  // can set an item in the form of {pmid: 12345} or ['pmid','12345']
+                'id-type': "doi",   // Can set the type for the "id" field
+                'id':      false,  // Can set an id
+            }
+            
+            var options = $.extend(defaults, options);
+ 
+            return this.each(function() {
+               var item;
+               
+               var $container = $(this);
+               
+               // Data options in the element override the options passed or defauled
+               for (var i in options) {
+                 if ($container.data(i)) {
+                   options[i] = $(this).data(i);
+                 }
+               }
+               
+               // Lots of ways to specify the id-type and id-value. Start by checking the "doi" and "pmid" values
+               if (options.pmid) {
+                 item = ['pmid', options.pmid];
+               }
+               else if (options.doi) {
+                 item = ['doi', options.doi];
+               }
+               else if (options.item) {
+                 item = options.item;
+               }
+               else {
+                 item = [options['id-type'], options['id']];
+               }
+               
+               if (options.preloaded) {
+                 impactStory.getItem(item, function(data) {
+                   impactStory.renderTemplate(template, data, function(markup) {
+                     $container.html(markup);
+                   });
+                 });
+               }
+               else {
+                 impactStory.addAndGetItem(item, function(data) {
+                   impactStory.renderTemplate(template, data, function(markup) {
+                     console.log(markup);
+                     $container.html(markup);
+                   });
+                 });
+               }
+            });
+        }
+    });
+})(jQuery);
+
+
+/**
+ * Automatically process all items with impactstory-embed-report and impactstory-embed-badges
+ */
+(function($){
+  $(document).ready(function() {
+    $('.impactstory-embed-report').ImpactStoryEmbed('report');
+    
+    //@@TODO
+    //$('.impactstory-embed-report').ImpactStoryEmbed('badges');
+  });
+})(jQuery);
