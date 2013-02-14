@@ -28,7 +28,7 @@ I'm currently working on the documentation. In the meantime, check out the examp
     <!-- This is all you really need, everything else (even the global variables above) is optional -->
     <div class="impactstory-embed-report" data-id="19210768" data-id-type="pmid" data-api-key="YOURKEY"></div>
     
-    <!-- You can provide data-doi or data-pmid -->
+    <!-- You can provide data-doi or data-pmid directly instead of data-id and data-id-type -->
     <div class="impactstory-embed-report" data-pmid="19210768" data-api-key="YOURKEY"></div>
     
     <!-- You can provide data-preloaded="yes" to make things faster if you are sure that impactStory has your item indexed -->
