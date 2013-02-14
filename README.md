@@ -3,6 +3,22 @@ ImpactStory.js
 
 An awesome, easy to use, flexible and extensible JavaScript API for ImpactStory (http://impactstory.org). 
 
+It has two major features:
+
+1. A general JavaScript API for working with ImpactStory data. This is essentially a javaScript wrapper around the REST api that abstracts away a lot of the boilerplate to make it easier to use.
+
+2. A robust "embed" feature-set for embedding ALM data (reports and badges) into a website. It's powered using mustache.js, so advanced users can swap out the templates. It's also built as a jQuery plugin, so that it should work well with webpages loaded by AJAX and also gives developers flexibility on when / how the ALM report / badges are embedded. Despite all these features, the "default" implementation looks nearly identical to and as easy to use as the one on impactstory.org.
+
+Overall I'm pretty happy with it.  Left to do:
+
+1. Adding CSS. Currently it's entirely unstyled.
+
+2. Getting the badges mustache template working. I just ran out of time and prioritized the report template.
+
+3. Adding synchronous wrappers for all the async API methods. 
+
+4. Documentation (both inline and readme) as well as lots of little tweaks and bug fixes.
+
 I'm currently working on the documentation. In the meantime, check out the example.html file, which is well documented and provides a lot of useful exmaples. 
 
 ```html
