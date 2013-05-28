@@ -248,7 +248,6 @@ function impactStory() {
   // This basically just transforms the metrics object into an array and adds other useful data required by the moustache template engine
   self.templatizeItem = function(item) {
     var metricsArray = [];
-    console.log(item);
     for (var name in item.metrics) {
       // Add the name to the metrics
       item.metrics[name].name = name;
