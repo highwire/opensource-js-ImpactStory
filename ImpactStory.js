@@ -248,6 +248,7 @@ function impactStory() {
   // This basically just transforms the metrics object into an array and adds other useful data required by the moustache template engine
   self.templatizeItem = function(item) {
     var metricsArray = [];
+    console.log(item);
     for (var name in item.metrics) {
       // Add the name to the metrics
       item.metrics[name].name = name;
@@ -258,6 +259,14 @@ function impactStory() {
       }
       else {
         item.metrics[name].values.simple = true;
+      }
+
+      // When rendering, we need to know how much to offset the upper-limit WoS. 
+      if (self._propExists(item.metrics[name], 'values.WoS.CI95_upper')) {
+        item.metrics[name].values.WoS.CI95_upper_offset = 100 - item.metrics[name].values.WoS.CI95_upper;
+      }
+      if (self._propExists(item.metrics[name], 'values.WoS.estimate_upper')) {
+        item.metrics[name].values.WoS.estimate_upper_offset = 100 - item.metrics[name].values.WoS.estimate_upper;
       }
 
       metricsArray.push(item.metrics[name])
@@ -295,6 +304,25 @@ function impactStory() {
       throw "impactStory error: items must be in the form of an array (eg. ['pmid','12345'] ) or a hash object (eg. {doi: '10.1371/journal.pbio.1000056'} .)";
     }
   };
+
+  /**
+   * Private utlity function that checks if a sub-property exists
+   * See: http://stackoverflow.com/questions/4676223/check-if-object-member-exists-in-nested-object
+   */
+  self._propExists = function(obj, prop) {
+    var parts = prop.split('.');
+    for(var i = 0, l = parts.length; i < l; i++) {
+        var part = parts[i];
+        if(obj !== null && typeof obj === "object" && part in obj) {
+            obj = obj[part];
+        }
+        else {
+            return false;
+        }
+    }
+    return true;
+  };
+
 }
 
 /**
