@@ -23,6 +23,10 @@
 	font-weight: bold;
 }
 
+.impact-story-report .metrics li .meta a.value-and-name:hover {
+	color: #ff4e00;
+}
+
 /* Hide lines w/ no percentile data */
 .impact-story-report .metrics li .line.percentile-fail {
   display: none;
@@ -48,7 +52,7 @@
 }
 
 .impact-story-report .metrics li .meta.values-simple + .line {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #bbb;
 	position: relative;
 	top: 5px;
 	width: 67%;
