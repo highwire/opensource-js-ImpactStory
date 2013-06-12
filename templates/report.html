@@ -2,22 +2,12 @@
   <ul class="metrics">
     {{#metrics}}
     <li>
-       <div class="meta">
+    	 {{#values.simple}}
+       <div class="meta values-simple">
           <img src="{{{static_meta.icon}}}" width="16" height="16" border="0" rel="tooltip" title="<strong>{{static_meta.provider}} {{static_meta.display_name}}</strong>: {{static_meta.description}}">
           {{#provenance_url}}
           <a class="value-and-name" target="_blank" href="{{{provenance_url}}}">
-             
-             {{#values.simple}}
              <span class="metric-value value">{{values.raw}}</span>
-             {{/values.simple}}
-             
-             {{^values.simple}}
-             {{#values.raw}}
-             <span class="metric-name name">{{name}}</span>
-             <span class="metric-value value">{{value}}</span>
-             {{/values.raw}}
-             {{/values.simple}}
-             
              <span class="metric-name">{{ static_meta.display_name }}</span>
           </a>
           {{/provenance_url}}
@@ -25,21 +15,37 @@
           <!-- sometimes, like with facebook, there's no url. then show a span, not a link -->
           {{^provenance_url}}
           <span class="value-and-name">
-             {{#values.simple}}
              <span class="metric-value value">{{values.raw}}</span>
-             {{/values.simple}}
-
-             {{^values.simple}}
-             {{#values.raw}}
-             <span class="metric-name name">{{name}}</span>
-             <span class="metric-value value">{{value}}</span>
-             {{/values.raw}}
-             {{/values.simple}}
-
              <span class="metric-name">{{ static_meta.display_name }}</span>
           </span>
           {{/provenance_url}}
        </div>
+       {{/values.simple}}
+       {{^values.simple}}
+       <div class="meta values-multiple">
+          <img src="{{{static_meta.icon}}}" width="16" height="16" border="0" rel="tooltip" title="<strong>{{static_meta.provider}} {{static_meta.display_name}}</strong>: {{static_meta.description}}">
+          {{#provenance_url}}
+          <a class="value-and-name" target="_blank" href="{{{provenance_url}}}">
+             {{#values.raw}}
+             <span class="metric-name name">{{name}}</span>
+             <span class="metric-value value">{{value}}</span>
+             {{/values.raw}}
+             <span class="metric-name">{{ static_meta.display_name }}</span>
+          </a>
+          {{/provenance_url}}
+
+          <!-- sometimes, like with facebook, there's no url. then show a span, not a link -->
+          {{^provenance_url}}
+          <span class="value-and-name">
+             {{#values.raw}}
+             <span class="metric-name name">{{name}}</span>
+             <span class="metric-value value">{{value}}</span>
+             {{/values.raw}}
+             <span class="metric-name">{{ static_meta.display_name }}</span>
+          </span>
+          {{/provenance_url}}
+       </div>
+       {{/values.simple}}
 
        <!-- if we've got ranges, show 'em, along sizeable div to show range -->
        {{#values.WoS}}

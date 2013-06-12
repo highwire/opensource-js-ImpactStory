@@ -1,4 +1,80 @@
+/* Layout setup */
+.impact-story-report ul.metrics {
+	list-style: none;
+	padding: 0;
+}
 
-div.impact-story-report ul.metrics li div.line.percentile-fail {
-  display:none;
+.impact-story-report .metrics li {
+	clear: both;
+}
+
+/* General text formatting */
+.impact-story-report .metrics li .meta .value-and-name,
+.impact-story-report .metrics li .line .metric-perc-range .endpoint {
+	color: #999;
+	font-size: 11px;
+}
+
+.impact-story-report .metrics li .line .metric-perc-range .endpoint {
+	font-size: 10px;
+}
+
+.impact-story-report .metrics li .value {
+	font-weight: bold;
+}
+
+/* Hide lines w/ no percentile data */
+.impact-story-report .metrics li .line.percentile-fail {
+  display: none;
+}
+
+/* data name + img */
+.impact-story-report .metrics li .meta.values-simple img,
+.impact-story-report .metrics li .meta.values-simple .value-and-name {
+	float: right;
+	margin-right: 10px;
+}
+
+.impact-story-report .metrics li .meta.values-simple .value-and-name {
+	margin-right: 5px;
+}
+
+/* data + bar graph alignemnt */
+.impact-story-report .metrics li .meta.values-simple,
+.impact-story-report .metrics li .meta.values-simple + .line {
+	float: left;
+	max-width: 200px;
+	width: 33%;
+}
+
+.impact-story-report .metrics li .meta.values-simple + .line {
+	border-bottom: 1px solid #ddd;
+	position: relative;
+	top: 5px;
+	width: 67%;
+}
+
+/* bar w/ percentile markers */
+.impact-story-report .metrics li .line .metric-perc-range {
+	position: relative;
+}
+
+.impact-story-report .metrics li .line .metric-perc-range .bar {
+	background: #377eb8;
+	display: block;
+	height: 8px;
+	width: 100%;
+}
+
+.impact-story-report .metrics li .line .metric-perc-range .endpoint {
+  position: absolute;
+  top: 0.5em;
+}
+
+.impact-story-report .metrics li .line .metric-perc-range .endpoint.start {
+	left: 0;
+}
+
+.impact-story-report .metrics li .line .metric-perc-range .endpoint.end {
+	right: 0;
 }
