@@ -11,13 +11,11 @@ It has two major features:
 
 Overall I'm pretty happy with it.  Left to do:
 
-1. Adding CSS. Currently it's entirely unstyled.
+1. Getting the badges mustache template working. I just ran out of time and prioritized the report template.
 
-2. Getting the badges mustache template working. I just ran out of time and prioritized the report template.
+2. Adding synchronous wrappers for all the async API methods. 
 
-3. Adding synchronous wrappers for all the async API methods. 
-
-4. Documentation (both inline and readme) as well as lots of little tweaks and bug fixes.
+3. Documentation (both inline and readme) as well as lots of little tweaks and bug fixes.
 
 I'm currently working on the documentation. In the meantime, check out the `example.html` file, which is well documented and provides a lot of useful exmaples. 
 
