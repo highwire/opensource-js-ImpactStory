@@ -5,7 +5,13 @@ var ImpactStory = new impactStory();
 // If you don't want to use the global object, you can create a new impactStory object by using `var myIS = new impactStory()`.
 function impactStory() {
 
-  var self = this;
+  var self;
+
+  if (! (this instanceof impactStory)) {
+    return new impactStory();
+  }
+
+  self = this;
 
   // This should be overriden. An error will be thrown if a key is not set.
   self.key = '';
